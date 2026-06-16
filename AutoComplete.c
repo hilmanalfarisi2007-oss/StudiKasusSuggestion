@@ -17,5 +17,19 @@ TrieNode *SearchInput(TrieNode *root, char *input){
 }
 
 void AmbilRekomendasi(TrieNode *node, char *bufferKata, int depth, LinkedList *listrekomen){
-    
+    if (node == NULL){
+        return;
+    }
+
+    if (node->AkhirKata){
+        bufferKata[depth] = '\0';
+        InsertList(listrekomen, bufferKata, node->Bobot);
+    }
+
+    for (int i = 0; i < 26; i++){
+        if (node->Anak[i] != NULL){
+            bufferKata[depth] = i + 'a';
+            AmbilRekomendasi(node->Anak[i],bufferKata, depth + 1,listrekomen);
+        }
+    }
 }
