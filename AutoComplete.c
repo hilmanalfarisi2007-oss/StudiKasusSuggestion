@@ -19,3 +19,8 @@ TrieNode *SearchInput(TrieNode *root, char *input){
 void AmbilRekomendasi(TrieNode *node, char *bufferKata, int depth, LinkedList *listrekomen){
     
 }
+
+//Fungsi Linked list
+void InitList(LinkedList *list) {
+    list->First = NULL;
+}
