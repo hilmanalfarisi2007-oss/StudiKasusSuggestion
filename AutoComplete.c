@@ -28,3 +28,12 @@ void InitList(LinkedList *list) {
 void InsertList(LinkedList *list, char *kata, int bobot) {
     // Alokasi memori untuk node baru
     RekomendasiNode *newNode = (RekomendasiNode*) malloc(sizeof(RekomendasiNode));
+    
+    // Isi data node baru
+    strcpy(newNode->Kata, kata);
+    newNode->Bobot = bobot;
+    
+    // Sambungkan ke list->First
+    newNode->Next = list->First;
+    list->First = newNode;
+}
