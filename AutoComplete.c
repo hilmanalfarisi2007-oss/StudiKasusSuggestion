@@ -89,3 +89,15 @@ void PrintTop10(LinkedList *list) {
         printf("Tidak ada rekomendasi yang ditemukan.\n");
     }
 }
+
+void HapusList(LinkedList *list) {
+    RekomendasiNode *node = list->First;
+    RekomendasiNode *next;
+
+    while (node != NULL) {
+        next = node->Next; // Amankan pointer ke node berikutnya
+        free(node);        // Bebaskan memori node saat ini
+        node = next;       // Pindah ke node berikutnya
+    }
+    list->First = NULL;    // Set kembali ke NULL
+}
