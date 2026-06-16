@@ -24,3 +24,7 @@ void AmbilRekomendasi(TrieNode *node, char *bufferKata, int depth, LinkedList *l
 void InitList(LinkedList *list) {
     list->First = NULL;
 }
+
+void InsertList(LinkedList *list, char *kata, int bobot) {
+    // Alokasi memori untuk node baru
+    RekomendasiNode *newNode = (RekomendasiNode*) malloc(sizeof(RekomendasiNode));
