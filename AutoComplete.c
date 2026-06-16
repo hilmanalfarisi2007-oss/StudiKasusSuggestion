@@ -37,3 +37,39 @@ void InsertList(LinkedList *list, char *kata, int bobot) {
     newNode->Next = list->First;
     list->First = newNode;
 }
+
+void SortList(LinkedList *list) {
+    if (list->First == NULL) return;
+
+    int swapped;
+    RekomendasiNode *ptr1;
+    RekomendasiNode *lptr = NULL; // Menandai batas akhir yang sudah terurut
+    
+    // Variabel sementara untuk swap (sesuai spesifikasi tugasmu)
+    char tempKata[100];
+    int tempBobot;
+
+    do {
+        swapped = 0;
+        ptr1 = list->First;
+
+        while (ptr1->Next != lptr) {
+            // Urutkan secara descending (Bobot kecil digeser ke belakang)
+            if (ptr1->Bobot < ptr1->Next->Bobot) { 
+                // 1. Swap Bobot
+                tempBobot = ptr1->Bobot;
+                ptr1->Bobot = ptr1->Next->Bobot;
+                ptr1->Next->Bobot = tempBobot;
+
+                // 2. Swap Kata
+                strcpy(tempKata, ptr1->Kata);
+                strcpy(ptr1->Kata, ptr1->Next->Kata);
+                strcpy(ptr1->Next->Kata, tempKata);
+
+                swapped = 1;
+            }
+            ptr1 = ptr1->Next;
+        }
+        lptr = ptr1;
+    } while (swapped);
+}
