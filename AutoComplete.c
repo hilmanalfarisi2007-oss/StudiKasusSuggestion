@@ -73,3 +73,19 @@ void SortList(LinkedList *list) {
         lptr = ptr1;
     } while (swapped);
 }
+
+void PrintTop10(LinkedList *list) {
+    RekomendasiNode *node = list->First;
+    int count = 0;
+
+    printf("\n--- Top 10 Rekomendasi ---\n");
+    while (node != NULL && count < 10) {
+        printf("%d. %s (Bobot: %d)\n", count + 1, node->Kata, node->Bobot);
+        node = node->Next;
+        count++;
+    }
+    
+    if (count == 0) {
+        printf("Tidak ada rekomendasi yang ditemukan.\n");
+    }
+}
