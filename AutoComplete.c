@@ -18,3 +18,24 @@ TrieNode *CreateNodeTrie()
 
     return node;
 }
+
+void InsertKata(TrieNode *root, char *kata, int bobot)
+{
+    TrieNode *current = root;
+
+    for (int i = 0; kata[i] != '\0'; i++)
+    {
+        int indeks = tolower(kata[i]) - 'a';
+
+        if (indeks < 0 || indeks > 25)
+            return;
+
+        if (current->Anak[indeks] == NULL)
+            current->Anak[indeks] = CreateNodeTrie();
+
+        current = current->Anak[indeks];
+    }
+
+    current->AkhirKata = true;
+    current->Bobot = bobot;
+}
