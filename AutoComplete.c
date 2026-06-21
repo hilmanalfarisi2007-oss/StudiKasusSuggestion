@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "AutoComplete.h"
 
 TrieNode *CreateNodeTrie()
@@ -168,10 +169,10 @@ void PrintTop10(LinkedList *list)
     RekomendasiNode *node = list->First;
     int count = 0;
 
-    printf("\n--- Top 10 Rekomendasi ---\n");
+    printf("\nRekomendasi kata\n");
     while (node != NULL && count < 10)
     {
-        printf("%d. %s (Bobot: %d)\n", count + 1, node->Kata, node->Bobot);
+        printf("%d. %s \n", count + 1, node->Kata);
         node = node->Next;
         count++;
     }
