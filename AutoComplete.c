@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "AutoComplete.h"
 
 TrieNode *CreateNodeTrie()
@@ -6,7 +8,7 @@ TrieNode *CreateNodeTrie()
     TrieNode *node = (TrieNode *)malloc(sizeof(TrieNode));
     if (node == NULL)
     {
-        printf("Error: Gagal alokasi memori.\n");
+        printf("Gagal alokasi\n");
         exit(1);
     }
 
@@ -28,7 +30,7 @@ void InsertKata(TrieNode *root, char *kata, int bobot)
         int indeks = tolower(kata[i]) - 'a';
 
         if (indeks < 0 || indeks > 25)
-            return;
+            continue;
 
         if (current->Anak[indeks] == NULL)
             current->Anak[indeks] = CreateNodeTrie();
@@ -38,4 +40,31 @@ void InsertKata(TrieNode *root, char *kata, int bobot)
 
     current->AkhirKata = true;
     current->Bobot = bobot;
+}
+
+void LoadKata(TrieNode *root, char *namaFile)
+{
+    FILE *file = fopen(namaFile, "r");
+    if (file == NULL)
+    {
+        printf("File tidak ditemukan.\n");
+        exit(1);
+    }
+
+    char buffer[100];
+    int nomorBaris = 0;
+
+    while (fgets(buffer, sizeof(buffer), file) != NULL)
+    {
+        buffer[strcspn(buffer, "\r\n")] = '\0';
+
+        if (strlen(buffer) == 0)
+            continue;
+
+        int bobot = 10000 - nomorBaris;
+        InsertKata(root, buffer, bobot);
+        nomorBaris++;
+    }
+
+    fclose(file);
 }
