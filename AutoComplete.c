@@ -108,3 +108,90 @@ void AmbilRekomendasi(TrieNode *node, char *bufferKata, int depth, LinkedList *l
         }
     }
 }
+
+void InitList(LinkedList *list)
+{
+    list->First = NULL;
+}
+
+void InsertList(LinkedList *list, char *kata, int bobot)
+{
+    RekomendasiNode *newNode = (RekomendasiNode *)malloc(sizeof(RekomendasiNode));
+
+    strcpy(newNode->Kata, kata);
+    newNode->Bobot = bobot;
+
+    newNode->Next = list->First;
+    list->First = newNode;
+}
+
+void SortList(LinkedList *list)
+{
+    if (list->First == NULL)
+        return;
+
+    int swapped;
+    RekomendasiNode *ptr1;
+    RekomendasiNode *lptr = NULL;
+
+    char tempKata[100];
+    int tempBobot;
+
+    do
+    {
+        swapped = 0;
+        ptr1 = list->First;
+
+        while (ptr1->Next != lptr)
+        {
+            if (ptr1->Bobot < ptr1->Next->Bobot)
+            {
+
+                tempBobot = ptr1->Bobot;
+                ptr1->Bobot = ptr1->Next->Bobot;
+                ptr1->Next->Bobot = tempBobot;
+
+                strcpy(tempKata, ptr1->Kata);
+                strcpy(ptr1->Kata, ptr1->Next->Kata);
+                strcpy(ptr1->Next->Kata, tempKata);
+
+                swapped = 1;
+            }
+            ptr1 = ptr1->Next;
+        }
+        lptr = ptr1;
+    } while (swapped);
+}
+
+void PrintTop10(LinkedList *list)
+{
+    RekomendasiNode *node = list->First;
+    int count = 0;
+
+    printf("\n--- Top 10 Rekomendasi ---\n");
+    while (node != NULL && count < 10)
+    {
+        printf("%d. %s (Bobot: %d)\n", count + 1, node->Kata, node->Bobot);
+        node = node->Next;
+        count++;
+    }
+
+    if (count == 0)
+    {
+        printf("Tidak ada rekomendasi yang ditemukan.\n");
+    }
+}
+
+void HapusList(LinkedList *list)
+{
+    RekomendasiNode *node = list->First;
+    RekomendasiNode *next;
+
+    while (node != NULL)
+    {
+        next = node->Next;
+        free(node);
+        node = next;
+    }
+    list->First = NULL;
+}
